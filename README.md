@@ -32,12 +32,13 @@ In this step, we are going to take advantage of Docker. That means that we don't
 First, run the 'init' command. This will download the necessary plugins for connecting to aws. 
 `$ docker run --rm -it -v $(pwd):/app/ -w /app/ hashicorp/terraform:light init`
 Then, run the 'plan' command. This command will show what it is intended to do in this deploy. the -out flag if for instructing terraform to save this info inside `changes.terraform`
-`$ docker run -i -t -v $(pwd):/app/ -w /app/ hashicorp/terraform:light plan -out changes.terraform`
+`$ docker run --rm -it -v $(pwd):/app/ -w /app/ hashicorp/terraform:light plan -out changes.terraform`
 Next, run 'apply':
-`$ docker run -i -t -v $(pwd):/app/ -w /app/ hashicorp/terraform:light apply changes.terraform`
+`$ docker run --rm -it -v $(pwd):/app/ -w /app/ hashicorp/terraform:light apply changes.terraform`
 
 > You will need to install Docker in your host machine if you don't have it already.
 
 If you follow these steps correctly, you should be able to see the nginx server (that we've just deployed) running by grabbing its public ip address, which you can find in the terminal output or in the AWS EC2 console, and placing it in your web browser.
 
 Finally, make sure you destroy this EC2 instance after you are done with this example, otherwise you could be charged.
+run: `$ docker run --rm -it -v $(pwd):/app/ -w /app/ hashicorp/terraform:light destroy`
